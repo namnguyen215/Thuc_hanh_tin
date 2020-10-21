@@ -1,52 +1,25 @@
-// Given an array of numbers,
-// program to arrange the numbers
-// to form the largest number
-#include <algorithm>
-#include <iostream>
-#include <string>
-#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
- 
-// A comparison function which 
-// is used by sort() in
-// printLargest()
-int myCompare(string X, string Y)
-{
-    // first append Y at the end of X
-    string XY = X.append(Y);
- 
-    // then append X at the end of Y
-    string YX = Y.append(X);
- 
-    // Now see which of the two 
-    // formed numbers is greater
-    return XY.compare(YX) > 0 ? 1 : 0;
-}
- 
-// The main function that prints 
-// the arrangement with the
-// largest value. The function 
-// accepts a vector of strings
-void printLargest(vector<string> arr)
-{
-
-    sort(arr.begin(), arr.end(), myCompare);
- 
-    for (int i = 0; i < arr.size(); i++)
-        cout << arr[i];
-}
- 
-
-int main()
-{
-    vector<string> arr;
- 
-    // output should be 6054854654
-    arr.push_back("54");
-    arr.push_back("546");
-    arr.push_back("548");
-    arr.push_back("60");
-    printLargest(arr);
- 
-    return 0;
+int main(){
+    int t;cin>>t;
+    while(t--){
+        int n,m;
+        cin>>n>>m;
+        int a[n][m];
+        int hang=n,cot=m,k=1,p=0;
+        while(p<m*n){
+            for(int i=p;i<cot;i++) cin>>a[p][i];
+            for(int i=p+1;i<hang;i++) cin>>a[i][cot-1];
+            if(p!=hang-1)
+                for(int i=cot-2;i>=p;i--) cin>>a[hang-1][i];
+            if(p!=cot-1)
+                for(int i=hang-2;i>p;i--) cin>>a[i][p];
+            p++;hang--;cot--;
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++) cout<<a[i][j]<<" ";
+            cout<<endl;
+        }
+    }
+    
 }
