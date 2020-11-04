@@ -27,11 +27,11 @@ string smallestcommon(string s1,string s2){
                 start_index=start;
             }
         }
-        if(start_index==-1) return "-1";
-        return s1.substr(start_index,min_len);
-
     }
+    if(start_index==-1) return "-1";
+    return s1.substr(start_index,min_len);
 }
+
 int main(){
     int t;cin>>t;
     while(t--){
