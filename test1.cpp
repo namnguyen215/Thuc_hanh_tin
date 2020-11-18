@@ -1,44 +1,57 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<string.h>
+#include<algorithm>
+
 using namespace std;
+
+string s[1000000];
+
+
 int main(){
-    int t;cin>>t;
-    cin.ignore();
+    int t;
+    cin >> t;
     while(t--){
-        string s1,s2;
-        getline(cin,s1);
-        getline(cin,s2);
-        s1+='#';s2+='#';
-        vector<string> vt1,vt2,vt;
-        string a="";
-        for(int i=0;i<s1.length();i++){
-            if(s1[i]==' '||i==s1.length()-1){
-                vt1.push_back(a);
-                a="";
+        int kq, x, nho=0, m=0, k=0, kq1=0, nho1=0, n=0;
+        string s1, s2, a="";
+        for(int i = 0; i < 1000000; i++)
+            s[i] = "";
+        cin >> s1 >> s2;
+        if(s1.size() < s2.size()) swap(s1, s2);
+        for(int i = s2.size()-1; i >= 0; i--){
+            nho = 0;
+            for(int j = s1.size()-1; j >= 0; j--){
+                kq = (s2[i] - '0') * (s1[j] - '0') + nho;
+                nho = kq/10;
+                s[m].push_back(kq % 10 + '0');
             }
-            else a+=s1[i];
+            m++;
+            if(nho != 0) s[m-1].push_back(nho + '0');
         }
-        for(int i=0;i<s2.length();i++){
-            if(s2[i]==' '||i==s2.length()-1){
-                vt2.push_back(a);
-                a="";
+        for(int i = 0; i < m; i++){
+            reverse(s[i].begin(), s[i].end());
+            s[i].insert(s[i].size(), i, '0');
+            if(k < s[i].size()) k = s[i].size();
+        }
+        for(int i = 0; i < m; i++)
+            if(s[i].size() != k) s[i].insert(0, k-s[i].size(), '0');
+//        for(int i = 0; i < m; i++)
+//            cout << s[i] << endl;
+        for(int i = s[0].size()-1; i >= 0; i--){
+            kq1 = 0;
+            for(int j = 0; j < m; j++){
+                kq1 += (s[j].at(i) - '0');
             }
-            else a+=s2[i];
+            kq1 += nho1;
+            nho1 = kq1/10;
+            a.push_back(kq1 % 10 + '0');
         }
-        
-        for(int i=0;i<vt2.size();i++){
-            for(int j=0;j<vt1.size();j++){
-                if(vt1[j]==vt2[i])
-                    vt1[j]="@";
-            }
+        n = a.size();
+        if(nho1 != 0) a.push_back(nho1 + '0');
+        else n -= 1;
+        for(int i = n; i >= 0; i--){
+            cout << a[i];
         }
-        for(int i=0;i<vt1.size();i++)
-            if(vt1[i] != "@")
-				vt.push_back(vt1[i]);
-		sort(vt.begin(),vt.end());
-		vt.push_back("namdz");
-		for(int i=0;i<vt.size()-1;i++) 
-			if(vt[i]!=vt[i+1])		
-				cout<<vt[i]<<" ";
-        cout<<endl;
+        cout << endl;
     }
+    return 0;
 }
