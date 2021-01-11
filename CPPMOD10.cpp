@@ -1,22 +1,24 @@
 #include<bits/stdc++.h>
 using namespace std;
-long long P=1000000007;
-
+long long P=1e9+7;
+long long luythua(int x,int b){
+    if(b==0) return 1;
+    long long a=luythua(x,b/2);
+    if(b%2==0)  return (a*a)%P;
+    else return (x*(a*a%P))%P;
+}
 int main(){
 	int t;cin>>t;
 	while(t--){
-        int n,x,b;
-        cin>>n>>x;b=n;
+        int n,x;
+        cin>>n>>x;
         long long a[n+1];
-        for(int i=0;i<n;i++)
+        for(int i=n-1;i>=0;i--)
             cin>>a[i];
         long long tong=0;
-        // for(int i=n-1;i>=0;i--){
-        //     long long tmp=pow(x,i);
-        //     tong=tong%P+(a[i]%P)*(tmp%P);
-        // }
-        for(int i=0;i<n;i++){
-			tong+=(a[i]%P*((long long)pow(x,--b)%P))%P;
+        for(int i=n-1;i>=0;i--){
+			tong+=(a[i]*(luythua(x,i)))%P;
+            tong%=P;
 		}	
         cout<<tong<<endl;
 	}

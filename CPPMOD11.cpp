@@ -4,13 +4,12 @@ using namespace std;
 long long add(long long a, long long b, long long c)
 { 
     if (b==0) return 0; 
-    int tmp= add(a,b/2,c); 
-    if(b%2==1)
-        return (a%c+2*(tmp%c)) % c;
-    else
-    {
+    long long  tmp= add(a,b/2,c); 
+    if(b%2==0)
         return (2*(tmp%c))%c;
-    }
+    else
+        return (a%c+2*(tmp%c)) % c;
+    
     
     
 } 
